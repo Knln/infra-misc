@@ -1,0 +1,55 @@
+--Linux Box Recommended Guidelines:
+/: 10GB
+/home: 100GB
+/boot 200MB
+/usr: 20GB
+/var: 30GB
+swap : 2x RAM
+Can also configure /opt
+
+--Sudo:
+
+/etc/sudoers.d
+/etc/sudoers but edit with visudo in /usr/sbin/visudo
+Useradd would add user in groups
+Usermod would modify permissions
+/var/log/auth.log for debian sudo logs
+User (host)=(user:group) format in sudoers file
+
+--User-Related Tasks:
+Creating a user:
+
+useradd -m -u 1000 userblah
+passwd userblah
+Usermod -aG sudo adm userblah
+
+Removing a user (w/ home dir):
+
+Userdel -r userblah
+
+--NTP
+
+Installing and configuring ntp:
+Apt-get install ntp
+Apt-get install ntpstat
+
+Systemctl stop ntp
+Vi /etc/ntp.conf
+pool  0.au.pool.ntp.org
+Systemctl start ntp
+Ntpq -p 
+
+--Grub
+/etc/defaults/grub -- default grub variables config file on startup
+/etc/grub.d -- helper scripts and bootloader directives for grub daemon
+
+For dual booting:
+
+Apt-get install os-prober 
+Sudo os-prober
+Grub-mkconfig -o /boot/grub/grub.cfg
+
+--Kernel Modules 
+modprobe -nv module_blah -- test
+modprobe module_blah -- add module
+modprobe -r module_blah -- remove module

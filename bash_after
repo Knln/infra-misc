@@ -1,0 +1,44 @@
+# Exports
+export EDITOR=vim
+
+HISTSIZE=100000
+HISTFILESIZE=10000000
+
+# Aliases
+alias lt='ls -lahtrs'
+alias ls='ls -lah'
+alias grep='grep -E --color'
+alias gerp='grep -E --color'
+alias lo='exit'
+alias rm='rm -i'
+alias ports='ss -tulanp'
+alias python='python3'
+
+alias ..='cd ..'
+alias ..='cd../..'
+alias ...='cd../../..'
+alias ....='cd../../../..'
+alias .....='cd../../../../..'
+
+# Functions
+
+function extract() {
+  if [ -f $1 ];
+  then
+    case $1 in
+      *.tar.bz2) tar xvjf $1;;
+      *.tar.gz) tar xvzf $1;;
+      *.bz2) bunzip2 $1;;
+      *.gz) gzip -d $1;;
+      *.rar) tar xvf $1;;
+      *.tbz2) tar xvjf $1;; 
+      *.tgz) tar xvzf $1;;
+      *.zip) unzip $1;;
+      *.Z) uncompress $1;;
+      *.7z) 7z x $1;;
+      *) echo "Unknown file type" ;;
+    esac
+  else
+    echo "'$1' is not a valid file"
+  fi
+}
