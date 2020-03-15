@@ -1,2 +1,2 @@
-# linux-misc
-Linux miscellany
+# infra-misc
+Infra miscellany
