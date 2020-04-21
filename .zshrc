@@ -3,7 +3,7 @@
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/kevinl/.oh-my-zsh"
-ZSH_THEME="random"
+ZSH_THEME="blinks"
 CASE_SENSITIVE="true"
 
 # Which plugins would you like to load?
@@ -58,3 +58,4 @@ function extract() {
   else
     echo "'$1' is not a valid file"
   fi
+ }
