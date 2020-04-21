@@ -1,0 +1,20 @@
+---Git---
+Git Commands
+git log
+git checkout -b <branch name> <origin/nodes/mko278>
+git branch
+git stash
+git rebase origin/nodes/mko278
+git diff
+
+---Useful tips with git:---
+"would clobber existing tag" can be forced with 
+git fetch origin --tags --force and followed by git pull.
+This would allow the git tags which has a conflict with the upstream to be merged into your branch.  
+
+"please commit your changes or stash them before checkout"
+You would need to first stash the changes i.e. from the new branch, git stash save "new branch" → git checkout old_branch → git checkout new_branch → git stash pop
+and voila, you have your new branch as is
+
+"Please move or remove them before you can merge"
+You need to clean these tracked files by git clean -d -f. This will force all the tracked files to be -f-orcibly removed 

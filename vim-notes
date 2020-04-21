@@ -1,0 +1,42 @@
+i - Enter insert mode at cursor
+s - delete character and insert mode
+a - insert mode after cursor
+o - insert mode next line
+C - insert mode and delete until end of line
+
+CTRL-U for up page
+CTRL-D for down page
+
+0 - beginning of line
+$ - end of line
+
+w - separates anything not a character
+W - separates WORD
+b - 
+B -
+e - next end of word
+E - next end of WORD
+
+(num)(noun)(verb)
+
+f - forward
+F - backward
+t - forward
+T - backward (exclusive) move before the char
+
+/ - forward
+? - backward
+* - forward bounded 
+g* - forward unbounded
+
+y - yank 
+p - paste
+
+u - undo
+ctrl-r redo
+
+:split
+CTRL-W 
+
+gg - top of file
+shift-g - end of file

@@ -37,19 +37,109 @@ Systemctl stop ntp
 Vi /etc/ntp.conf
 pool  0.au.pool.ntp.org
 Systemctl start ntp
-Ntpq -p 
+Ntpq -p
 
---Grub
+---Grub---
 /etc/defaults/grub -- default grub variables config file on startup
 /etc/grub.d -- helper scripts and bootloader directives for grub daemon
 
 For dual booting:
 
-Apt-get install os-prober 
+Apt-get install os-prober
 Sudo os-prober
 Grub-mkconfig -o /boot/grub/grub.cfg
 
---Kernel Modules 
+---Fstab---
+/etc/fstab --- file system table cfg, for all disk/disk partitions
+Run fdisk /dev/sda4 --> mkfs.ext4 --> edit fstab for new disk
+See: https://wiki.debian.org/fstab
+
+---Kernel Modules---
 modprobe -nv module_blah -- test
 modprobe module_blah -- add module
 modprobe -r module_blah -- remove module
+
+---SED---
+sed -n '/blah/,/blah1/p' - print between blah1 and blah2
+sed -n '/blah/,/blah1/ {/no/,/no1/d;p}' - find between blah1 and blah2 and delete and print  between no and no1
+http://www.grymoire.com/Unix/Sed.html#uh-15
+
+---AWK---
+awk
+awk '/li/ { print $1, $NF }' mail-list -- this prints the first field and last field
+https://www.gnu.org/software/gawk/manual/html_node/Reading-Files.htmlReading-Files
+
+---TAR---
+tar -tf --- list all files in tarball
+tar xf0 --- tar to stdout
+tar -xf archive.tar.gz file1 file2  --- extract file1 and file2
+tar -tvf archive.tar.gz --- list all files
+tar -zcvf blah.sh.tgz blah.sh --- tar
+tar -zxcf blah.tgz --- untar
+tar then gzip. if tarzip ball then gzip and tar zxvf
+
+---FIND---
+find . -mtime +0  find files modified greater than 24 hours ago
+find . -mtime 0  find files modified between now and 1 day ago
+find . -mtime -1  find files modified less than 1 day ago (SAME AS -mtime 0)
+find . -mtime 1  find files modified between 24 and 48 hours ago
+find . -mtime +1  find files modified more than 48 hours ago
+
+---OTHER---
+lsof --- open file descriptors
+fuser --- which process is hogging a file
+ss (similar to netstat as netstat is deprecated) - network connections, route tables, etc
+setxkbmap us --- set keyboard mapping to US
+strace -p<pid> --- tracing call stack of process
+du -a home | sort -n -r | head -n 50 - see 50 largest files
+iostat --- throughput of all the IO through the network
+grep -h (no filename) -o (match Only) -v (reVerse)
+xargs <execute command eg grep blah>
+hexdump --- dumps file in hex
+strings --- prints all strings in file
+netcat --- network capture
+objdump --- object file info
+
+---GDB---
+Useful Links
+https://ccrma.stanford.edu/~jos/stkintro/Useful_commands_gdb.html
+gdb <binary> <core dump>
+---Commands---
+bt full - prints all local variables
+up/down - move up and down a frame
+info locals, args - prints local and arguments
+frame <number> - moves context to frame <number>
+print <variable>
+
+---CPUs---
+https://software.intel.com/en-us/articles/intel-performance-counter-monitor
+Info about CPUs (cores per CPU, threads per core, sockets) : lscpu.
+CPU(s) indicate logical CPUs not physical CPUs
+Thread(s) per core * Core(s) per socket * Socket(s) = Number of Logical CPU(s)
+Each physical CPU may have multiple cores which would execute the software processes and threads that are needed to run and each of those multiple cores will hold the running program context in its buffers.
+Isolated/Uninsolated: /sys/devices/system/cpu/present
+Logical cores are the basic computational unit of a CPU. 
+
+---Systemd---
+Daemon that controls all the userland processes and services and starts with id 1. Can be controlled, viewed and queried with systemctl. RHEL6.X uses service --status-all to query services and uses upstart which is an event driven initialisation process.
+Typical Linux Startup Process (init.d can be substituted with systemd)
+Steps
+BIOS locates the bootloader, hands off control to the bootloader (i.e. GRUB2) which locates the MBR/GPT to execute the kernel code.
+
+---Devices---
+The /sys filesystem (sysfs) contains files that provide information about devices: whether it's powered on, the vendor name and model, what bus the device is plugged into, etc. It's of interest to applications that manage devices.
+The /dev filesystem contains files that allow programs to access the devices themselves: write data to a serial port, read a hard disk, etc. It's of interest to applications that access devices.
+A metaphor is that /sys provides access to the packaging, while /dev provides access to the content of the box.
+
+---Top---
+1 - shows CPU utilisation
+z - pretty red color
+c - long command
+m - memory usage
+k - pid to kill
+l - load average
+M - sort by memory
+P - sort by CPU
+
+---Asynchronous IO---
+https://jvns.ca/blog/2017/06/03/async-io-on-linux--select--poll--and-epoll/

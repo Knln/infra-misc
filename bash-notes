@@ -1,0 +1,81 @@
+---SED---
+sed -n '/blah/,/blah1/p' - print between blah1 and blah2
+sed -n '/blah/,/blah1/ {/no/,/no1/d;p}' - find between blah1 and blah2 and delete and print  between no and no1
+http://www.grymoire.com/Unix/Sed.html#uh-15
+---AWK---
+awk
+awk '/li/ { print $1, $NF }' mail-list -- this prints the first field and last field
+https://www.gnu.org/software/gawk/manual/html_node/Reading-Files.htmlReading-Files
+---TAR---
+tar -tf --- list all files in tarball
+tar xf0 --- tar to stdout
+tar -xf archive.tar.gz file1 file2  --- extract file1 and file2
+tar -tvf archive.tar.gz --- list all files
+tar -zcvf blah.sh.tgz blah.sh --- tar
+tar -zxcf blah.tgz --- untar
+tar then gzip. if tarzip ball then gzip and tar zxvf
+---FIND---
+find . -mtime +0  find files modified greater than 24 hours ago
+find . -mtime 0  find files modified between now and 1 day ago
+find . -mtime -1  find files modified less than 1 day ago (SAME AS -mtime 0)
+find . -mtime 1  find files modified between 24 and 48 hours ago
+find . -mtime +1  find files modified more than 48 hours ago
+---OTHER---
+lsof --- open file descriptors
+fuser --- which process is hogging a file
+ss (similar to netstat as netstat is deprecated) - network connections, route tables, etc
+setxkbmap us --- set keyboard mapping to US
+strace -p<pid> --- tracing call stack of process
+du -a home | sort -n -r | head -n 50 - see 50 largest files
+iostat --- throughput of all the IO through the network
+grep -h (no filename) -o (match Only) -v (reVerse)
+xargs <execute command eg grep blah>
+hexdump --- dumps file in hex
+strings --- prints all strings in file
+netcat --- network capture
+objdump --- object file info
+---GDB---
+Useful Links
+https://ccrma.stanford.edu/~jos/stkintro/Useful_commands_gdb.html
+gdb <binary> <core dump>
+---Commands---
+bt full - prints all local variables
+up/down - move up and down a frame
+info locals, args - prints local and arguments
+frame <number> - moves context to frame <number>
+print <variable>
+
+---BASH---
+--if--
+-a TRUE IF FILE EXISTS
+-s TRUE IF FILE EXISTS AND GREATER THAN ZERO
+-r,w,e TRUE IF FILE EXISTS AND R/W/E able
+-z TRUE IF STRING IS ZERO
+-n TRUE IF STRING IS NON-ZERO
+if [[ $var =~ *"match"* ]] --- pattern matching
+---test---
+[[ <true argument> ]] && <this is executed>
+[[ <true argument> ]] || <this is not executed>
+[[ <false argument> ]] && <this is not executed>
+[[ <false argument> ]] || <this is executed>
+-eq checks equality == checks strings
+---shell params---
+$@ pos params, for no of pos params, ? exit status, $* pos params but subject to further expansion, $0 name of shell script
+---parser---
+while $ -gt 0
+do
+case
+;;
+esac
+shift
+unset
+if [ err != false ] then break; fi
+done
+---for---
+for n in blah
+do
+done
+---output redirection---
+< contents of file to stdin
+<< here document. will execute until this delimiter is seen
+<<< here string. will pass this string of text to the program eg bc <<< 5*4
