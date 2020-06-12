@@ -54,6 +54,11 @@ Grub-mkconfig -o /boot/grub/grub.cfg
 Run fdisk /dev/sda4 --> mkfs.ext4 --> edit fstab for new disk
 See: https://wiki.debian.org/fstab
 
+---DNS Resolution---
+/etc/nsswitch.conf: Order of resolution see hosts: files dns
+/etc/hosts/: Static lookup. Used for miscellany hosts
+/etc/resolv.conf: Lists nameservers that are used by your host for DNS resolution.
+
 ---Kernel Modules---
 modprobe -nv module_blah -- test
 modprobe module_blah -- add module
